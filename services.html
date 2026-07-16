@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Services | Ayushman Diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#123a91; --blue-dark:#0c2a6b; --red:#e12629; --red-dark:#c01f22;
+    --ink:#1c2430; --muted:#5c6673; --bg-soft:#f4f7fb; --white:#ffffff; --border:#e6ebf2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);line-height:1.5;}
+  h1,h2,h3{font-family:'Poppins',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 24px;}
+
+  .topbar{background:var(--blue-dark);color:#dbe4f5;font-size:13px;}
+  .topbar .container{display:flex;justify-content:space-between;align-items:center;padding-top:9px;padding-bottom:9px;flex-wrap:wrap;gap:8px;}
+  .topbar-left{display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .topbar-left span, .topbar-right a{display:flex;align-items:center;gap:6px;color:#dbe4f5;}
+  .topbar-right{display:flex;align-items:center;gap:16px;}
+  .topbar-right .socials{display:flex;gap:12px;margin-left:6px;}
+  .topbar-right .socials a{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;}
+
+  header{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--border);}
+  .navwrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;}
+  .brand img{height:100px;width:auto;}
+  nav ul{display:flex;gap:30px;align-items:center;}
+  nav a{font-weight:600;font-size:14.5px;letter-spacing:.3px;color:var(--ink);padding:6px 2px;position:relative;}
+  nav a.active{color:var(--red);}
+  nav a.active::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2.5px;background:var(--red);}
+  nav a:hover{color:var(--red);}
+  .call-btn{background:var(--red);color:#fff;padding:12px 22px;border-radius:6px;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 6px 16px rgba(225,38,41,0.28);}
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--blue);}
+
+  .page-hero{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);padding:60px 0;color:#fff;}
+  .page-hero h1{font-size:36px;font-weight:800;margin-bottom:10px;}
+  .page-hero .crumb{color:#bcd0f2;font-size:14px;font-weight:600;}
+  .page-hero .crumb span{color:#fff;}
+
+  .eyebrow{color:var(--red);font-weight:700;font-size:13px;letter-spacing:1.5px;margin-bottom:14px;text-transform:uppercase;}
+  .section{padding:90px 0;}
+  .section.soft{background:var(--bg-soft);}
+  .section-head{max-width:640px;margin:0 auto 44px;text-align:center;}
+  .section-head h2{font-size:34px;color:var(--blue);font-weight:800;margin-bottom:14px;}
+  .section-head p{color:var(--muted);font-size:15.5px;}
+
+  /* CATEGORY CARDS */
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:60px;}
+  .cat-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:transform .25s ease, box-shadow .25s ease;}
+  .cat-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px -20px rgba(18,58,145,0.3);}
+  .cat-card .thumb{height:140px;overflow:hidden;position:relative;}
+  .cat-card .thumb img{width:100%;height:100%;object-fit:cover;}
+  .cat-card .badge-ico{position:absolute;left:16px;bottom:-20px;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #fff;}
+  .cat-card .body{padding:30px 18px 20px;}
+  .cat-card h4{font-size:15.5px;font-weight:700;margin-bottom:4px;}
+  .cat-card p{font-size:12.5px;color:var(--muted);}
+
+  /* PRICE TABLE */
+  .table-wrap{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden;box-shadow:0 20px 45px -30px rgba(18,58,145,0.3);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--blue);color:#fff;}
+  thead th{padding:16px 20px;text-align:left;font-size:13px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;}
+  tbody td{padding:15px 20px;font-size:14.5px;border-bottom:1px solid var(--border);color:var(--ink);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:nth-child(even){background:#fafcff;}
+  tbody tr:hover{background:#eef3fc;}
+  .price{font-weight:700;color:var(--red-dark);}
+  .tat-badge{display:inline-block;background:#e8f5ec;color:#1c8a4a;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700;}
+  .cat-label{padding:16px 20px;background:var(--bg-soft);font-weight:800;color:var(--blue);font-size:15px;border-bottom:1px solid var(--border);border-top:1px solid var(--border);}
+  .cat-label:first-child{border-top:none;}
+
+  /* NOTE STRIP */
+  .note-strip{margin-top:26px;background:#fdeaea;border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:16px 20px;font-size:13.5px;color:var(--red-dark);font-weight:600;}
+
+  .cta-strip{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);color:#fff;border-radius:18px;padding:50px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-top:70px;}
+  .cta-strip h3{font-size:26px;font-weight:800;margin-bottom:8px;}
+  .cta-strip p{color:#cdd9f2;font-size:14.5px;}
+  .btn-primary{background:var(--red);color:#fff;padding:15px 26px;border-radius:7px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 20px rgba(225,38,41,0.28);}
+
+  footer{background:var(--blue-dark);color:#c6d3ef;padding:64px 0 0;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .footer-brand img{height:44px;margin-bottom:16px;}
+  .footer-grid h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:18px;}
+  .footer-grid p{font-size:13.5px;line-height:1.7;color:#aebde0;}
+  .footer-grid ul li{margin-bottom:10px;}
+  .footer-grid ul a{font-size:13.5px;color:#c6d3ef;}
+  .footer-grid ul a:hover{color:#fff;}
+  .footer-bottom{padding:22px 0;text-align:center;font-size:13px;color:#8fa0c9;}
+
+  @media(max-width:1024px){
+    .cat-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    table{font-size:13px;}
+  }
+  @media(max-width:768px){
+    nav{display:none;}
+    .menu-toggle{display:block;}
+    .call-btn span{display:none;}
+    .topbar-left span:nth-child(2){display:none;}
+    .page-hero h1{font-size:28px;}
+    .cat-grid{grid-template-columns:1fr 1fr;}
+    .cta-strip{flex-direction:column;text-align:center;}
+    .footer-grid{grid-template-columns:1fr;}
+    .table-wrap{overflow-x:auto;}
+    table{min-width:600px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <span>📍 Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</span>
+      <span>🕐 Mon - Sun : 7:00 AM - 8:00 PM</span>
+      <span>✉️ ayushmandiagnostic@gmail.com</span>
+    </div>
+    <div class="topbar-right">
+      <div class="socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="https://wa.me/918383920848" aria-label="WhatsApp">wa</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="navwrap container">
+    <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ayushman Diagnostic Logo"></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="report.html">Report</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+    <a href="tel:8383920848" class="call-btn">📞 <span>8383920848</span></a>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Our Services</h1>
+    <div class="crumb">Home / <span>Services</span></div>
+  </div>
+</section>
+
+<!-- CATEGORY CARDS -->
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="text-align:center;">What We Offer</div>
+      <h2>Complete Diagnostic Services</h2>
+      <p>Accurate laboratory testing across blood, biochemistry, pathology and rapid screening — most reports ready within 2 hours, same day.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="thumb"><img src="assets/blood-tubes.jpg" alt="Blood Tests"><span class="badge-ico">🩸</span></div>
+        <div class="body"><h4>Blood Tests</h4><p>CBC, ESR, HB, Blood Group &amp; more</p></div>
+      </div>
+      <div class="cat-card">
+        <div class="thumb"><img src="assets/hero-lab.jpg" alt="Biochemistry Tests"><span class="badge-ico">⚗️</span></div>
+        <div class="body"><h4>Biochemistry Tests</h4><p>LFT, KFT, Lipid Profile, HBA1C</p></div>
+      </div>
+      <div class="cat-card">
+        <div class="thumb"><img src="assets/urine-test.webp" alt="Rapid Screening Tests"><span class="badge-ico">🧪</span></div>
+        <div class="body"><h4>Rapid Screening</h4><p>HIV, Hepatitis B &amp; C rapid card</p></div>
+      </div>
+      <div class="cat-card">
+        <div class="thumb"><img src="assets/microscope.jpg" alt="Pathology Tests"><span class="badge-ico">🔬</span></div>
+        <div class="body"><h4>Pathology Tests</h4><p>FNAC, Cytology &amp; Sputum tests</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE TABLE -->
+<section class="section soft">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="text-align:center;">Price List</div>
+      <h2>Test Prices &amp; Reporting Time</h2>
+      <p>Transparent pricing, no hidden charges. All prices in ₹ (INR).</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Test Name</th><th>Specimen</th><th>Price</th><th>Reporting TAT</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="5" class="cat-label">🩸 Blood Tests</td></tr>
+          <tr><td>1</td><td>CBC (Sysmax - 6 Part Machine)</td><td>EDTA Sample</td><td class="price">₹400</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>2</td><td>ESR</td><td>EDTA Sample</td><td class="price">₹200</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>3</td><td>HB</td><td>EDTA Sample</td><td class="price">₹110</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>4</td><td>Blood Group</td><td>EDTA Sample</td><td class="price">₹110</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>5</td><td>Bleeding Time (BT) &amp; Clotting Time (CT)</td><td>Finger Prick</td><td class="price">₹300</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>6</td><td>PT INR</td><td>Citrated Sample</td><td class="price">₹550</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+
+          <tr><td colspan="5" class="cat-label">⚗️ Biochemistry Tests</td></tr>
+          <tr><td>7</td><td>LFT</td><td>Serum Sample</td><td class="price">₹800</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>8</td><td>KFT with Electrolytes</td><td>Serum Sample</td><td class="price">₹1200</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>9</td><td>Lipid Profile</td><td>Serum Sample</td><td class="price">₹550</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>10</td><td>HBA1C</td><td>EDTA Sample</td><td class="price">₹550</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>11</td><td>BSR</td><td>Plasma / Fluoride</td><td class="price">₹80</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>12</td><td>Thyroid Profile (T3, T4, TSH)</td><td>Serum Sample</td><td class="price">₹600</td><td><span class="tat-badge" style="background:#fff3e0;color:#b26a00;">Next Day</span></td></tr>
+
+          <tr><td colspan="5" class="cat-label">🧪 Rapid Screening Tests</td></tr>
+          <tr><td>13</td><td>Hepatitis B Surface Antigen (HBsAg), Rapid Card</td><td>Serum Sample</td><td class="price">₹250</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>14</td><td>Hepatitis C Antibody (HCV), Rapid Card</td><td>Serum Sample</td><td class="price">₹250</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+          <tr><td>15</td><td>HIV Antibody, Rapid Card</td><td>Serum Sample</td><td class="price">₹300</td><td><span class="tat-badge">2 Hrs / Same Day</span></td></tr>
+
+          <tr><td colspan="5" class="cat-label">🔬 Pathology Tests</td></tr>
+          <tr><td>16</td><td>FNAC With Procedure (Walk-in Patients Only)</td><td>—</td><td class="price">₹1500</td><td><span class="tat-badge">Same Day</span></td></tr>
+          <tr><td>17</td><td>Fine Needle Aspiration Cytology (FNAC)</td><td>FNAC-2 Smear Slide</td><td class="price">₹1000</td><td><span class="tat-badge">Same Day</span></td></tr>
+          <tr><td>18</td><td>Sputum for AFB</td><td>Sputum</td><td class="price">₹600</td><td><span class="tat-badge">Same Day</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-strip">⚠ Prices are subject to change. Please call 8383920848 to confirm the latest price before visiting.</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="container">
+    <div class="cta-strip">
+      <div>
+        <h3>Ready to book your test?</h3>
+        <p>Call now or visit us — home sample collection also available.</p>
+      </div>
+      <a href="tel:8383920848" class="btn-primary">📞 Call 8383920848</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Ayushman Diagnostic">
+        <p>Accurate tests, reliable results. Advanced technology and compassionate care for your good health.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="services.html">Blood Tests</a></li>
+          <li><a href="services.html">Pathology Tests</a></li>
+          <li><a href="services.html">Biochemistry Tests</a></li>
+          <li><a href="report.html">Download Report</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <p>Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</p>
+        <p style="margin-top:8px;">📞 8383920848 / 8210109908</p>
+        <p style="margin-top:8px;">✉️ ayushmandiagnostic@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Ayushman Diagnostic. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

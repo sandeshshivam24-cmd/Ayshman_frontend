@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayushman Diagnostic | Accurate Tests, Reliable Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#123a91;
+    --blue-dark:#0c2a6b;
+    --red:#e12629;
+    --red-dark:#c01f22;
+    --ink:#1c2430;
+    --muted:#5c6673;
+    --bg-soft:#f4f7fb;
+    --white:#ffffff;
+    --border:#e6ebf2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.5;
+  }
+  h1,h2,h3,.logo-text{font-family:'Poppins',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{
+    width:100%;
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    background:var(--blue-dark);
+    color:#dbe4f5;
+    font-size:13px;
+  }
+  .topbar .container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:9px;
+    padding-bottom:9px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .topbar-left{display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .topbar-left span, .topbar-right a{display:flex;align-items:center;gap:6px;color:#dbe4f5;}
+  .topbar-right{display:flex;align-items:center;gap:16px;}
+  .topbar-right .socials{display:flex;gap:12px;margin-left:6px;}
+  .topbar-right .socials a{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,0.12);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;
+  }
+
+  /* ============ HEADER / NAV ============ */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:var(--white);
+    border-bottom:1px solid var(--border);
+  }
+  .navwrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:100px;width:auto;}
+  nav ul{display:flex;gap:30px;align-items:center;}
+  nav a{
+    font-weight:600;font-size:14.5px;letter-spacing:.3px;
+    color:var(--ink);
+    padding:6px 2px;
+    position:relative;
+  }
+  nav a.active{color:var(--red);}
+  nav a.active::after{
+    content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2.5px;background:var(--red);
+  }
+  nav a:hover{color:var(--red);}
+  .call-btn{
+    background:var(--red);color:#fff;
+    padding:12px 22px;border-radius:6px;
+    font-weight:700;font-size:15px;
+    display:flex;align-items:center;gap:8px;
+    white-space:nowrap;
+    box-shadow:0 6px 16px rgba(225,38,41,0.28);
+  }
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--blue);}
+
+  /* ============ HERO ============ */
+  .hero{
+    background:linear-gradient(180deg,#f4f7fb 0%,#ffffff 100%);
+    padding:56px 0 0;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;
+  }
+  .eyebrow{
+    color:var(--red);font-weight:700;font-size:13px;letter-spacing:1.5px;
+    margin-bottom:14px;text-transform:uppercase;
+  }
+  .hero h1{
+    font-size:44px;line-height:1.15;font-weight:800;color:var(--blue);margin-bottom:18px;
+  }
+  .hero h1 span{color:var(--red);display:block;}
+  .hero p.lead{color:var(--muted);font-size:16px;max-width:460px;margin-bottom:26px;}
+  .hero-badges{display:flex;gap:24px;margin-bottom:30px;flex-wrap:wrap;}
+  .hero-badge{display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;color:var(--ink);}
+  .hero-badge .ico{
+    width:38px;height:38px;border-radius:9px;background:#eaf0fb;color:var(--blue);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;
+  }
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--red);color:#fff;padding:15px 26px;border-radius:7px;font-weight:700;font-size:15px;
+    display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 20px rgba(225,38,41,0.28);
+  }
+  .btn-outline{
+    border:1.5px solid var(--blue);color:var(--blue);padding:15px 26px;border-radius:7px;font-weight:700;font-size:15px;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary:hover{background:var(--red-dark);}
+  .btn-outline:hover{background:var(--blue);color:#fff;}
+  .hero-img-wrap{
+    position:relative;border-radius:16px;overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(18,58,145,0.35);
+  }
+  .hero-img-wrap img{width:100%;height:480px;object-fit:cover;}
+
+  /* ============ FEATURE STRIP ============ */
+  .feature-strip{
+    background:var(--white);
+    border-radius:14px;
+    box-shadow:0 20px 45px -25px rgba(18,58,145,0.35);
+    margin:44px auto 0;
+    padding:30px 20px;
+    display:grid;grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    position:relative;
+    z-index:5;
+  }
+  .feature-item{display:flex;align-items:center;gap:12px;padding:0 10px;}
+  .feature-item .circle{
+    width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+  }
+  .feature-item h4{font-size:14.5px;font-weight:700;margin-bottom:2px;}
+  .feature-item p{font-size:12.5px;color:var(--muted);}
+
+  /* ============ SECTION HEADS ============ */
+  .section{padding:90px 0;}
+  .section.soft{background:var(--bg-soft);}
+  .section-head{max-width:640px;margin-bottom:44px;}
+  .section-head .eyebrow{margin-bottom:10px;}
+  .section-head h2{font-size:34px;color:var(--blue);font-weight:800;margin-bottom:14px;}
+  .section-head p{color:var(--muted);font-size:15.5px;}
+
+  /* ============ POPULAR TESTS ============ */
+  .tests-layout{display:grid;grid-template-columns:0.85fr 2.15fr;gap:40px;align-items:start;}
+  .tests-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:22px;
+  }
+  .test-card{
+    background:#fff;border-radius:14px;overflow:hidden;
+    border:1px solid var(--border);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .test-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px -20px rgba(18,58,145,0.3);}
+  .test-card .thumb{height:150px;overflow:hidden;position:relative;}
+  .test-card .thumb img{width:100%;height:100%;object-fit:cover;}
+  .test-card .badge-ico{
+    position:absolute;left:16px;bottom:-20px;
+    width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:18px;
+    border:3px solid #fff;
+  }
+  .test-card .body{padding:30px 18px 20px;}
+  .test-card h4{font-size:16px;font-weight:700;margin-bottom:6px;color:var(--ink);}
+  .test-card p{font-size:13px;color:var(--muted);}
+  .view-all-link{
+    margin-top:30px;background:var(--blue);color:#fff;padding:15px 24px;border-radius:7px;
+    font-weight:700;font-size:14.5px;display:inline-flex;align-items:center;gap:8px;
+  }
+
+  /* ============ WHY US ============ */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  .why-img{border-radius:16px;overflow:hidden;box-shadow:0 25px 50px -25px rgba(18,58,145,0.35);}
+  .why-img img{height:420px;object-fit:cover;width:100%;}
+  .why-list{display:flex;flex-direction:column;gap:22px;margin-top:26px;}
+  .why-item{display:flex;gap:16px;align-items:flex-start;}
+  .why-item .num{
+    font-family:'Poppins';font-weight:800;font-size:15px;color:var(--red);
+    width:36px;height:36px;border-radius:9px;background:#fdeaea;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .why-item h4{font-size:16px;font-weight:700;margin-bottom:4px;}
+  .why-item p{font-size:13.5px;color:var(--muted);}
+
+  /* ============ CTA STRIP ============ */
+  .cta-strip{
+    background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);
+    color:#fff;border-radius:18px;padding:50px 50px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;
+    margin:0 auto;
+  }
+  .cta-strip h3{font-size:26px;font-weight:800;margin-bottom:8px;}
+  .cta-strip p{color:#cdd9f2;font-size:14.5px;}
+  .cta-strip .btn-primary{background:var(--red);}
+
+  /* ============ REPORT SECTION ============ */
+  .report-box{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border-radius:18px;overflow:hidden;
+    box-shadow:0 25px 55px -25px rgba(18,58,145,0.4);
+  }
+  .report-left{background:var(--blue);color:#fff;padding:54px 44px;}
+  .report-left .eyebrow{color:#8fb0ec;}
+  .report-left h2{font-size:28px;font-weight:800;margin-bottom:14px;}
+  .report-left p{color:#cdd9f2;font-size:14.5px;margin-bottom:26px;}
+  .report-right{background:#fff;padding:54px 44px;display:flex;flex-direction:column;justify-content:center;}
+  .report-form label{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;display:block;}
+  .report-form input{
+    width:100%;padding:14px 16px;border-radius:8px;border:1.5px solid var(--border);
+    font-size:15px;margin-bottom:16px;font-family:'Inter';
+  }
+  .report-form input:focus{outline:none;border-color:var(--blue);}
+  .report-form button{
+    width:100%;background:var(--red);color:#fff;border:none;padding:15px;border-radius:8px;
+    font-weight:700;font-size:15px;cursor:pointer;
+  }
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--blue-dark);color:#c6d3ef;padding:64px 0 0;}
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:40px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand img{height:44px;margin-bottom:16px;}
+  .footer-grid h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:18px;}
+  .footer-grid p{font-size:13.5px;line-height:1.7;color:#aebde0;}
+  .footer-grid ul li{margin-bottom:10px;}
+  .footer-grid ul a{font-size:13.5px;color:#c6d3ef;}
+  .footer-grid ul a:hover{color:#fff;}
+  .footer-bottom{
+    padding:22px 0;text-align:center;font-size:13px;color:#8fa0c9;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media(max-width:1024px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-img-wrap img{height:340px;}
+    .feature-strip{grid-template-columns:repeat(3,1fr);}
+    .tests-layout{grid-template-columns:1fr;}
+    .tests-grid{grid-template-columns:repeat(2,1fr);}
+    .why-grid{grid-template-columns:1fr;}
+    .report-box{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    nav{display:none;}
+    .menu-toggle{display:block;}
+    .call-btn span{display:none;}
+    .topbar-left span:nth-child(2){display:none;}
+    .hero h1{font-size:32px;}
+    .feature-strip{grid-template-columns:1fr 1fr;}
+    .tests-grid{grid-template-columns:1fr 1fr;}
+    .cta-strip{flex-direction:column;text-align:center;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <span>📍 Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</span>
+      <span>🕐 Mon - Sun : 7:00 AM - 8:00 PM</span>
+      <span>✉️ ayushmandiagnostic@gmail.com</span>
+    </div>
+    <div class="topbar-right">
+      <div class="socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="https://wa.me/918383920848" aria-label="WhatsApp">wa</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="navwrap container">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Ayushman Diagnostic Logo">
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="report.html">Report</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+    <a href="tel:8383920848" class="call-btn">📞 <span>8383920848</span></a>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Welcome to Ayushman Diagnostic</div>
+        <h1>Accurate Tests,<span>Reliable Results</span></h1>
+        <p class="lead">सटीक जांच, सही उपचार — advanced technology, accurate diagnosis and compassionate care for your good health.</p>
+        <div class="hero-badges">
+          <div class="hero-badge"><span class="ico">✔</span> Accurate Results</div>
+          <div class="hero-badge"><span class="ico">🛡</span> Safe &amp; Hygienic Environment</div>
+          <div class="hero-badge"><span class="ico">⏱</span> On Time Reports</div>
+        </div>
+        <div class="hero-cta">
+          <a href="contact.html" class="btn-primary">Book a Test →</a>
+          <a href="services.html" class="btn-outline">View All Tests →</a>
+        </div>
+      </div>
+      <div class="hero-img-wrap">
+        <img src="assets/hero-lab.jpg" alt="Ayushman Diagnostic lab technician at work">
+      </div>
+    </div>
+
+    <!-- Feature strip -->
+    <div class="feature-strip">
+      <div class="feature-item"><span class="circle">🏠</span><div><h4>Home Collection</h4><p>Sample collection from your home</p></div></div>
+      <div class="feature-item"><span class="circle">📄</span><div><h4>Online Reports</h4><p>Get your reports online instantly</p></div></div>
+      <div class="feature-item"><span class="circle">⏱</span><div><h4>Quick Turnaround</h4><p>Reports delivered within time</p></div></div>
+      <div class="feature-item"><span class="circle">₹</span><div><h4>Affordable Prices</h4><p>Quality tests at best prices</p></div></div>
+      <div class="feature-item"><span class="circle">🎧</span><div><h4>Customer Support</h4><p>We are here to help you</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POPULAR TESTS ============ -->
+<section class="section">
+  <div class="container">
+    <div class="tests-layout">
+      <div>
+        <div class="eyebrow">Our Services</div>
+        <h2 style="font-size:32px;color:var(--blue);font-weight:800;margin-bottom:14px;">Our Popular Tests</h2>
+        <p style="color:var(--muted);font-size:15px;margin-bottom:26px;">We offer a wide range of diagnostic tests with accurate results and advanced technology, reported within 2 hours on the same day.</p>
+        <a href="services.html" class="view-all-link">View All Tests →</a>
+      </div>
+      <div class="tests-grid">
+        <div class="test-card">
+          <div class="thumb"><img src="assets/blood-tubes.jpg" alt="Blood Tests"><span class="badge-ico">🩸</span></div>
+          <div class="body"><h4>Blood Tests</h4><p>CBC, LFT, KFT, Lipid Profile &amp; more</p></div>
+        </div>
+        <div class="test-card">
+          <div class="thumb"><img src="assets/microscope.jpg" alt="Pathology Tests"><span class="badge-ico">🔬</span></div>
+          <div class="body"><h4>Pathology Tests</h4><p>FNAC &amp; cytology laboratory tests</p></div>
+        </div>
+        <div class="test-card">
+          <div class="thumb"><img src="assets/hero-lab.jpg" alt="Biochemistry Tests"><span class="badge-ico">⚗️</span></div>
+          <div class="body"><h4>Biochemistry Tests</h4><p>HBA1C, Thyroid Profile &amp; more</p></div>
+        </div>
+        <div class="test-card">
+          <div class="thumb"><img src="assets/urine-test.webp" alt="Rapid Screening Tests"><span class="badge-ico">🧪</span></div>
+          <div class="body"><h4>Rapid Screening</h4><p>HIV, Hepatitis B &amp; C rapid card tests</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE US ============ -->
+<section class="section soft">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-img"><img src="assets/lab.jpeg" alt="Lab equipment at Ayushman Diagnostic"></div>
+      <div>
+        <div class="eyebrow">Why Choose Us</div>
+        <h2 style="font-size:32px;color:var(--blue);font-weight:800;">Trusted Diagnostic Care in Samastipur</h2>
+        <div class="why-list">
+          <div class="why-item"><span class="num">01</span><div><h4>Experienced Supervision</h4><p>Lab operations supervised under Dr. Amrendra sir (BDS).</p></div></div>
+          <div class="why-item"><span class="num">02</span><div><h4>Same Day Reporting</h4><p>Most reports ready within 2 hours, same day.</p></div></div>
+          <div class="why-item"><span class="num">03</span><div><h4>Hygienic &amp; Safe</h4><p>Clean sample collection environment with trained staff.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REPORT DOWNLOAD ============ -->
+<section class="section">
+  <div class="container">
+    <div class="report-box">
+      <div class="report-left">
+        <div class="eyebrow">Download Report</div>
+        <h2>Get Your Report Online</h2>
+        <p>Enter your registered mobile number below and download your test report instantly — no waiting, no visit required.</p>
+        <div class="hero-badges" style="margin-bottom:0;">
+          <div class="hero-badge" style="color:#fff;"><span class="ico" style="background:rgba(255,255,255,0.15);color:#fff;">⚡</span> Instant Access</div>
+        </div>
+      </div>
+      <div class="report-right">
+        <form class="report-form" onsubmit="return false;">
+          <label for="mobile">Registered Mobile Number</label>
+          <input type="tel" id="mobile" placeholder="Enter 10-digit mobile number" maxlength="10">
+          <button type="submit">Download Report</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA STRIP ============ -->
+<section class="section soft" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-strip">
+      <div>
+        <h3>Need a test done today?</h3>
+        <p>Call us or book online — home sample collection available.</p>
+      </div>
+      <a href="tel:8383920848" class="btn-primary">📞 Call 8383920848</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Ayushman Diagnostic">
+        <p>Accurate tests, reliable results. Advanced technology and compassionate care for your good health.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="services.html">Blood Tests</a></li>
+          <li><a href="services.html">Pathology Tests</a></li>
+          <li><a href="services.html">Biochemistry Tests</a></li>
+          <li><a href="report.html">Download Report</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <p>Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</p>
+        <p style="margin-top:8px;">📞 8383920848 / 8210109908</p>
+        <p style="margin-top:8px;">✉️ ayushmandiagnostic@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Ayushman Diagnostic. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

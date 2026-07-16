@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Ayushman Diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#123a91; --blue-dark:#0c2a6b; --red:#e12629; --red-dark:#c01f22;
+    --ink:#1c2430; --muted:#5c6673; --bg-soft:#f4f7fb; --white:#ffffff; --border:#e6ebf2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);line-height:1.5;}
+  h1,h2,h3{font-family:'Poppins',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 24px;}
+
+  .topbar{background:var(--blue-dark);color:#dbe4f5;font-size:13px;}
+  .topbar .container{display:flex;justify-content:space-between;align-items:center;padding-top:9px;padding-bottom:9px;flex-wrap:wrap;gap:8px;}
+  .topbar-left{display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .topbar-left span, .topbar-right a{display:flex;align-items:center;gap:6px;color:#dbe4f5;}
+  .topbar-right{display:flex;align-items:center;gap:16px;}
+  .topbar-right .socials{display:flex;gap:12px;margin-left:6px;}
+  .topbar-right .socials a{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;}
+
+  header{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--border);}
+  .navwrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;}
+  .brand img{height:100px;width:auto;}
+  nav ul{display:flex;gap:30px;align-items:center;}
+  nav a{font-weight:600;font-size:14.5px;letter-spacing:.3px;color:var(--ink);padding:6px 2px;position:relative;}
+  nav a.active{color:var(--red);}
+  nav a.active::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2.5px;background:var(--red);}
+  nav a:hover{color:var(--red);}
+  .call-btn{background:var(--red);color:#fff;padding:12px 22px;border-radius:6px;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 6px 16px rgba(225,38,41,0.28);}
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--blue);}
+
+  .page-hero{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);padding:60px 0;color:#fff;}
+  .page-hero h1{font-size:36px;font-weight:800;margin-bottom:10px;}
+  .page-hero .crumb{color:#bcd0f2;font-size:14px;font-weight:600;}
+  .page-hero .crumb span{color:#fff;}
+
+  .eyebrow{color:var(--red);font-weight:700;font-size:13px;letter-spacing:1.5px;margin-bottom:14px;text-transform:uppercase;}
+  .section{padding:90px 0;}
+  .section.soft{background:var(--bg-soft);}
+
+  /* CONTACT INFO STRIP */
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:70px;}
+  .info-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:30px 26px;transition:transform .25s ease, box-shadow .25s ease;}
+  .info-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px -20px rgba(18,58,145,0.3);}
+  .info-card .circle{width:52px;height:52px;border-radius:12px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;}
+  .info-card h4{font-size:16px;font-weight:700;margin-bottom:8px;}
+  .info-card p{font-size:13.5px;color:var(--muted);line-height:1.7;}
+  .info-card a{color:var(--blue);font-weight:600;}
+
+  /* MAP + FORM */
+  .contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:stretch;}
+  .map-wrap{border-radius:16px;overflow:hidden;box-shadow:0 25px 55px -25px rgba(18,58,145,0.4);min-height:460px;}
+  .map-wrap iframe{width:100%;height:100%;min-height:460px;border:0;}
+
+  .form-card{background:#fff;border-radius:16px;border:1px solid var(--border);padding:40px;box-shadow:0 20px 45px -30px rgba(18,58,145,0.3);}
+  .form-card h3{font-size:22px;font-weight:800;color:var(--blue);margin-bottom:6px;}
+  .form-card p.sub{color:var(--muted);font-size:13.5px;margin-bottom:26px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-group{margin-bottom:16px;}
+  .form-group label{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:7px;display:block;}
+  .form-group input, .form-group textarea{
+    width:100%;padding:13px 15px;border-radius:8px;border:1.5px solid var(--border);
+    font-size:14.5px;font-family:'Inter';
+  }
+  .form-group input:focus, .form-group textarea:focus{outline:none;border-color:var(--blue);}
+  .form-group textarea{resize:vertical;min-height:100px;}
+  .form-card button{
+    width:100%;background:var(--red);color:#fff;border:none;padding:15px;border-radius:8px;
+    font-weight:700;font-size:15px;cursor:pointer;margin-top:6px;
+  }
+  .form-card button:hover{background:var(--red-dark);}
+
+  .cta-strip{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);color:#fff;border-radius:18px;padding:50px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-top:70px;}
+  .cta-strip h3{font-size:26px;font-weight:800;margin-bottom:8px;}
+  .cta-strip p{color:#cdd9f2;font-size:14.5px;}
+  .btn-primary{background:var(--red);color:#fff;padding:15px 26px;border-radius:7px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 20px rgba(225,38,41,0.28);}
+
+  footer{background:var(--blue-dark);color:#c6d3ef;padding:64px 0 0;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .footer-brand img{height:44px;margin-bottom:16px;}
+  .footer-grid h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:18px;}
+  .footer-grid p{font-size:13.5px;line-height:1.7;color:#aebde0;}
+  .footer-grid ul li{margin-bottom:10px;}
+  .footer-grid ul a{font-size:13.5px;color:#c6d3ef;}
+  .footer-grid ul a:hover{color:#fff;}
+  .footer-bottom{padding:22px 0;text-align:center;font-size:13px;color:#8fa0c9;}
+
+  @media(max-width:1024px){
+    .info-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .map-wrap{min-height:340px;}
+    .map-wrap iframe{min-height:340px;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    nav{display:none;}
+    .menu-toggle{display:block;}
+    .call-btn span{display:none;}
+    .topbar-left span:nth-child(2){display:none;}
+    .page-hero h1{font-size:28px;}
+    .form-row{grid-template-columns:1fr;}
+    .cta-strip{flex-direction:column;text-align:center;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <span>📍 Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</span>
+      <span>🕐 Mon - Sun : 7:00 AM - 8:00 PM</span>
+      <span>✉️ ayushmandiagnostic@gmail.com</span>
+    </div>
+    <div class="topbar-right">
+      <div class="socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="https://wa.me/918383920848" aria-label="WhatsApp">wa</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="navwrap container">
+    <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ayushman Diagnostic Logo"></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="report.html">Report</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html" class="active">Contact Us</a></li>
+      </ul>
+    </nav>
+    <a href="tel:8383920848" class="call-btn">📞 <span>8383920848</span></a>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Contact Us</h1>
+    <div class="crumb">Home / <span>Contact Us</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- INFO CARDS -->
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="circle">📍</div>
+        <h4>Our Location</h4>
+        <p>Infront of Shiv Mandir, Mohanpur Chowk,<br>Samastipur - 848101, Bihar</p>
+      </div>
+      <div class="info-card">
+        <div class="circle">📞</div>
+        <h4>Call Us</h4>
+        <p><a href="tel:8383920848">8383920848</a><br><a href="tel:8210109908">8210109908</a></p>
+      </div>
+      <div class="info-card">
+        <div class="circle">🕐</div>
+        <h4>Working Hours</h4>
+        <p>Mon - Sun<br>7:00 AM - 8:00 PM</p>
+      </div>
+    </div>
+
+    <!-- MAP + FORM -->
+    <div class="section-head" style="max-width:640px;">
+      <div class="eyebrow">Get In Touch</div>
+      <h2 style="font-size:32px;color:var(--blue);font-weight:800;margin-bottom:14px;">Visit Us or Send a Message</h2>
+      <p style="color:var(--muted);font-size:15px;">Find us on the map below, or send us your query and we'll get back to you.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d921086.7446356367!2d85.14302798926505!3d25.605079196345326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed910e2acd4aa1%3A0x4fca1aee7a4930a1!2sAyushman%20Diagnostic!5e0!3m2!1sen!2sin!4v1784173612939!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+
+      <div class="form-card">
+        <h3>Send Us a Message</h3>
+        <p class="sub">Fill in your details and we'll respond as soon as possible.</p>
+        <form onsubmit="return false;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Mobile Number</label>
+              <input type="tel" id="phone" placeholder="10-digit number" maxlength="10" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email (optional)</label>
+            <input type="email" id="email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="How can we help you?" required></textarea>
+          </div>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <div>
+        <h3>Prefer to talk directly?</h3>
+        <p>Call or message us on WhatsApp — we're happy to help.</p>
+      </div>
+      <a href="tel:8383920848" class="btn-primary">📞 Call 8383920848</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Ayushman Diagnostic">
+        <p>Accurate tests, reliable results. Advanced technology and compassionate care for your good health.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="services.html">Blood Tests</a></li>
+          <li><a href="services.html">Pathology Tests</a></li>
+          <li><a href="services.html">Biochemistry Tests</a></li>
+          <li><a href="report.html">Download Report</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <p>Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</p>
+        <p style="margin-top:8px;">📞 8383920848 / 8210109908</p>
+        <p style="margin-top:8px;">✉️ ayushmandiagnostic@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Ayushman Diagnostic. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

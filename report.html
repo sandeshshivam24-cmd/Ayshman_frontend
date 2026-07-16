@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Download Report | Ayushman Diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#123a91; --blue-dark:#0c2a6b; --red:#e12629; --red-dark:#c01f22;
+    --ink:#1c2430; --muted:#5c6673; --bg-soft:#f4f7fb; --white:#ffffff; --border:#e6ebf2;
+    --green:#1c8a4a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);line-height:1.5;}
+  h1,h2,h3{font-family:'Poppins',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 24px;}
+
+  .topbar{background:var(--blue-dark);color:#dbe4f5;font-size:13px;}
+  .topbar .container{display:flex;justify-content:space-between;align-items:center;padding-top:9px;padding-bottom:9px;flex-wrap:wrap;gap:8px;}
+  .topbar-left{display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .topbar-left span, .topbar-right a{display:flex;align-items:center;gap:6px;color:#dbe4f5;}
+  .topbar-right{display:flex;align-items:center;gap:16px;}
+  .topbar-right .socials{display:flex;gap:12px;margin-left:6px;}
+  .topbar-right .socials a{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;}
+
+  header{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--border);}
+  .navwrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;}
+  .brand img{height:100px;width:auto;}
+  nav ul{display:flex;gap:30px;align-items:center;}
+  nav a{font-weight:600;font-size:14.5px;letter-spacing:.3px;color:var(--ink);padding:6px 2px;position:relative;}
+  nav a.active{color:var(--red);}
+  nav a.active::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2.5px;background:var(--red);}
+  nav a:hover{color:var(--red);}
+  .call-btn{background:var(--red);color:#fff;padding:12px 22px;border-radius:6px;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 6px 16px rgba(225,38,41,0.28);}
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--blue);}
+
+  .page-hero{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);padding:60px 0;color:#fff;}
+  .page-hero h1{font-size:36px;font-weight:800;margin-bottom:10px;}
+  .page-hero .crumb{color:#bcd0f2;font-size:14px;font-weight:600;}
+  .page-hero .crumb span{color:#fff;}
+
+  .eyebrow{color:var(--red);font-weight:700;font-size:13px;letter-spacing:1.5px;margin-bottom:14px;text-transform:uppercase;}
+  .section{padding:90px 0;}
+  .section.soft{background:var(--bg-soft);}
+
+  /* REPORT LOOKUP CARD */
+  .lookup-wrap{max-width:560px;margin:0 auto;}
+  .lookup-card{
+    background:#fff;border-radius:18px;border:1px solid var(--border);
+    box-shadow:0 30px 60px -30px rgba(18,58,145,0.35);padding:44px 40px;text-align:center;
+  }
+  .lookup-card .icon-circle{
+    width:64px;height:64px;border-radius:16px;background:#eaf0fb;color:var(--blue);
+    display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;
+  }
+  .lookup-card h2{font-size:24px;font-weight:800;color:var(--blue);margin-bottom:8px;}
+  .lookup-card p.sub{color:var(--muted);font-size:14px;margin-bottom:30px;}
+  .lookup-form{text-align:left;}
+  .lookup-form label{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;display:block;}
+  .input-group{position:relative;margin-bottom:8px;}
+  .input-group span.prefix{
+    position:absolute;left:16px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--muted);font-size:15px;
+  }
+  .lookup-form input{
+    width:100%;padding:15px 16px 15px 46px;border-radius:9px;border:1.5px solid var(--border);
+    font-size:16px;font-family:'Inter';letter-spacing:1px;
+  }
+  .lookup-form input:focus{outline:none;border-color:var(--blue);}
+  .error-msg{color:var(--red-dark);font-size:12.5px;font-weight:600;margin:6px 0 0;display:none;}
+  .lookup-form button{
+    width:100%;background:var(--red);color:#fff;border:none;padding:16px;border-radius:9px;
+    font-weight:700;font-size:15.5px;cursor:pointer;margin-top:18px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .lookup-form button:hover{background:var(--red-dark);}
+
+  .result-box{
+    margin-top:22px;border-radius:12px;padding:20px;text-align:left;display:none;
+  }
+  .result-box.success{background:#e8f5ec;border:1px solid #b6e2c4;}
+  .result-box.error{background:#fdeaea;border:1px solid #f3c1c2;}
+  .result-box h4{font-size:15px;font-weight:700;margin-bottom:6px;}
+  .result-box.success h4{color:var(--green);}
+  .result-box.error h4{color:var(--red-dark);}
+  .result-box p{font-size:13.5px;color:var(--muted);margin-bottom:14px;}
+  .download-link{
+    display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;
+    padding:12px 20px;border-radius:8px;font-weight:700;font-size:14px;
+  }
+
+  /* STEPS */
+  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:10px;}
+  .step-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:30px 26px;position:relative;}
+  .step-card .step-num{
+    width:40px;height:40px;border-radius:10px;background:var(--blue);color:#fff;font-weight:800;
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-family:'Poppins';
+  }
+  .step-card h4{font-size:16px;font-weight:700;margin-bottom:6px;}
+  .step-card p{font-size:13.5px;color:var(--muted);}
+
+  .note-strip{margin-top:30px;background:#fdeaea;border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:16px 20px;font-size:13.5px;color:var(--red-dark);font-weight:600;max-width:560px;margin-left:auto;margin-right:auto;}
+
+  .cta-strip{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);color:#fff;border-radius:18px;padding:50px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+  .cta-strip h3{font-size:26px;font-weight:800;margin-bottom:8px;}
+  .cta-strip p{color:#cdd9f2;font-size:14.5px;}
+  .btn-primary{background:var(--red);color:#fff;padding:15px 26px;border-radius:7px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 20px rgba(225,38,41,0.28);}
+
+  footer{background:var(--blue-dark);color:#c6d3ef;padding:64px 0 0;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .footer-brand img{height:44px;margin-bottom:16px;}
+  .footer-grid h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:18px;}
+  .footer-grid p{font-size:13.5px;line-height:1.7;color:#aebde0;}
+  .footer-grid ul li{margin-bottom:10px;}
+  .footer-grid ul a{font-size:13.5px;color:#c6d3ef;}
+  .footer-grid ul a:hover{color:#fff;}
+  .footer-bottom{padding:22px 0;text-align:center;font-size:13px;color:#8fa0c9;}
+
+  @media(max-width:1024px){
+    .steps-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    nav{display:none;}
+    .menu-toggle{display:block;}
+    .call-btn span{display:none;}
+    .topbar-left span:nth-child(2){display:none;}
+    .page-hero h1{font-size:28px;}
+    .lookup-card{padding:32px 22px;}
+    .cta-strip{flex-direction:column;text-align:center;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <span>📍 Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</span>
+      <span>🕐 Mon - Sun : 7:00 AM - 8:00 PM</span>
+      <span>✉️ ayushmandiagnostic@gmail.com</span>
+    </div>
+    <div class="topbar-right">
+      <div class="socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="https://wa.me/918383920848" aria-label="WhatsApp">wa</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="navwrap container">
+    <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ayushman Diagnostic Logo"></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="report.html" class="active">Report</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+    <a href="tel:8383920848" class="call-btn">📞 <span>8383920848</span></a>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Download Your Report</h1>
+    <div class="crumb">Home / <span>Report</span></div>
+  </div>
+</section>
+
+<!-- LOOKUP CARD -->
+<section class="section">
+  <div class="container">
+    <div class="lookup-wrap">
+      <div class="lookup-card">
+        <div class="icon-circle">📄</div>
+        <h2>Get Your Report Online</h2>
+        <p class="sub">Enter the mobile number registered at the time of your test to download your report instantly.</p>
+
+        <form class="lookup-form" id="reportForm">
+          <label for="mobile">Registered Mobile Number</label>
+          <div class="input-group">
+            <span class="prefix"></span>
+            <input type="tel" id="mobile" placeholder="Enter 10-digit mobile number" maxlength="10" inputmode="numeric" required>
+          </div>
+          <p class="error-msg" id="errorMsg">Please enter a valid 10-digit mobile number.</p>
+          <button type="submit">🔍 Find My Report</button>
+        </form>
+
+        <div class="result-box success" id="successBox">
+          <h4>✔ Report Found</h4>
+          <p>Your report is ready. Click below to download.</p>
+          <a href="#" class="download-link">⬇ Download PDF</a>
+        </div>
+
+        <div class="result-box error" id="notFoundBox">
+          <h4>✖ No Report Found</h4>
+          <p>We couldn't find a report for this number yet. Reports usually take a few hours to upload — or call us to confirm.</p>
+        </div>
+      </div>
+
+      <div class="note-strip">⚠ This is a demo screen. It will connect to the live report database once the backend and admin panel are set up.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="section soft">
+  <div class="container">
+    <div class="section-head" style="text-align:center;max-width:600px;margin:0 auto 44px;">
+      <div class="eyebrow" style="text-align:center;">How It Works</div>
+      <h2 style="font-size:32px;color:var(--blue);font-weight:800;margin-bottom:14px;">3 Simple Steps</h2>
+      <p style="color:var(--muted);font-size:15px;">Getting your report online is quick and easy.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>Enter Your Number</h4>
+        <p>Type the mobile number you gave at the time of your sample collection.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>We Find Your Report</h4>
+        <p>We match your number against our records to locate your report.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>Download Instantly</h4>
+        <p>If your report is ready, download the PDF straight to your phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-strip">
+      <div>
+        <h3>Can't find your report?</h3>
+        <p>Call us and we'll help you locate or resend it.</p>
+      </div>
+      <a href="tel:8383920848" class="btn-primary">📞 Call 8383920848</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Ayushman Diagnostic">
+        <p>Accurate tests, reliable results. Advanced technology and compassionate care for your good health.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="services.html">Blood Tests</a></li>
+          <li><a href="services.html">Pathology Tests</a></li>
+          <li><a href="services.html">Biochemistry Tests</a></li>
+          <li><a href="report.html">Download Report</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <p>Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</p>
+        <p style="margin-top:8px;">📞 8383920848 / 8210109908</p>
+        <p style="margin-top:8px;">✉️ ayushmandiagnostic@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Ayushman Diagnostic. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('reportForm');
+  const mobileInput = document.getElementById('mobile');
+  const errorMsg = document.getElementById('errorMsg');
+  const successBox = document.getElementById('successBox');
+  const notFoundBox = document.getElementById('notFoundBox');
+
+  mobileInput.addEventListener('input', () => {
+    mobileInput.value = mobileInput.value.replace(/[^0-9]/g, '');
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    successBox.style.display = 'none';
+    notFoundBox.style.display = 'none';
+    errorMsg.style.display = 'none';
+
+    const val = mobileInput.value.trim();
+    if(val.length !== 10){
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    // Placeholder logic — will be replaced with a real API call to the backend.
+    notFoundBox.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>

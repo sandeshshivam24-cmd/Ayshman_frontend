@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health Packages | Ayushman Diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#123a91; --blue-dark:#0c2a6b; --red:#e12629; --red-dark:#c01f22;
+    --ink:#1c2430; --muted:#5c6673; --bg-soft:#f4f7fb; --white:#ffffff; --border:#e6ebf2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);line-height:1.5;}
+  h1,h2,h3{font-family:'Poppins',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 24px;}
+
+  .topbar{background:var(--blue-dark);color:#dbe4f5;font-size:13px;}
+  .topbar .container{display:flex;justify-content:space-between;align-items:center;padding-top:9px;padding-bottom:9px;flex-wrap:wrap;gap:8px;}
+  .topbar-left{display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .topbar-left span, .topbar-right a{display:flex;align-items:center;gap:6px;color:#dbe4f5;}
+  .topbar-right{display:flex;align-items:center;gap:16px;}
+  .topbar-right .socials{display:flex;gap:12px;margin-left:6px;}
+  .topbar-right .socials a{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;}
+
+  header{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--border);}
+  .navwrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;}
+  .brand img{height:100px;width:auto;}
+  nav ul{display:flex;gap:30px;align-items:center;}
+  nav a{font-weight:600;font-size:14.5px;letter-spacing:.3px;color:var(--ink);padding:6px 2px;position:relative;}
+  nav a.active{color:var(--red);}
+  nav a.active::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2.5px;background:var(--red);}
+  nav a:hover{color:var(--red);}
+  .call-btn{background:var(--red);color:#fff;padding:12px 22px;border-radius:6px;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 6px 16px rgba(225,38,41,0.28);}
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--blue);}
+
+  .page-hero{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);padding:60px 0;color:#fff;}
+  .page-hero h1{font-size:36px;font-weight:800;margin-bottom:10px;}
+  .page-hero .crumb{color:#bcd0f2;font-size:14px;font-weight:600;}
+  .page-hero .crumb span{color:#fff;}
+
+  .eyebrow{color:var(--red);font-weight:700;font-size:13px;letter-spacing:1.5px;margin-bottom:14px;text-transform:uppercase;}
+  .section{padding:90px 0;}
+  .section.soft{background:var(--bg-soft);}
+  .section-head{max-width:640px;margin:0 auto 50px;text-align:center;}
+  .section-head h2{font-size:34px;color:var(--blue);font-weight:800;margin-bottom:14px;}
+  .section-head p{color:var(--muted);font-size:15.5px;}
+
+  /* PACKAGE CARDS */
+  .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .pkg-card{
+    background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .pkg-card:hover{transform:translateY(-8px);box-shadow:0 25px 50px -25px rgba(18,58,145,0.35);}
+  .pkg-card.featured{border:2px solid var(--red);position:relative;}
+  .pkg-ribbon{
+    position:absolute;top:0;right:0;background:var(--red);color:#fff;font-size:11.5px;font-weight:800;
+    padding:6px 14px;border-radius:0 0 0 10px;letter-spacing:.5px;text-transform:uppercase;
+  }
+  .pkg-head{padding:30px 26px 20px;border-bottom:1px dashed var(--border);}
+  .pkg-head .tag{color:var(--red);font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+  .pkg-head h3{font-size:21px;font-weight:800;color:var(--blue);margin-bottom:8px;}
+  .pkg-head p{font-size:13.5px;color:var(--muted);}
+  .pkg-price{display:flex;align-items:baseline;gap:10px;margin-top:16px;}
+  .pkg-price .now{font-size:30px;font-weight:800;color:var(--red-dark);font-family:'Poppins';}
+  .pkg-price .was{font-size:15px;color:var(--muted);text-decoration:line-through;}
+  .pkg-body{padding:24px 26px;flex:1;display:flex;flex-direction:column;}
+  .pkg-body ul{margin-bottom:24px;flex:1;}
+  .pkg-body li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--ink);margin-bottom:11px;}
+  .pkg-body li .tick{color:#1c8a4a;font-weight:800;flex-shrink:0;}
+  .pkg-btn{
+    display:block;text-align:center;background:var(--blue);color:#fff;padding:13px;border-radius:8px;
+    font-weight:700;font-size:14.5px;
+  }
+  .pkg-card.featured .pkg-btn{background:var(--red);}
+
+  .note-strip{margin-top:40px;background:#fdeaea;border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:16px 20px;font-size:13.5px;color:var(--red-dark);font-weight:600;}
+
+  .cta-strip{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);color:#fff;border-radius:18px;padding:50px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+  .cta-strip h3{font-size:26px;font-weight:800;margin-bottom:8px;}
+  .cta-strip p{color:#cdd9f2;font-size:14.5px;}
+  .btn-primary{background:var(--red);color:#fff;padding:15px 26px;border-radius:7px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 20px rgba(225,38,41,0.28);}
+
+  footer{background:var(--blue-dark);color:#c6d3ef;padding:64px 0 0;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .footer-brand img{height:44px;margin-bottom:16px;}
+  .footer-grid h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:18px;}
+  .footer-grid p{font-size:13.5px;line-height:1.7;color:#aebde0;}
+  .footer-grid ul li{margin-bottom:10px;}
+  .footer-grid ul a{font-size:13.5px;color:#c6d3ef;}
+  .footer-grid ul a:hover{color:#fff;}
+  .footer-bottom{padding:22px 0;text-align:center;font-size:13px;color:#8fa0c9;}
+
+  @media(max-width:1024px){
+    .pkg-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    nav{display:none;}
+    .menu-toggle{display:block;}
+    .call-btn span{display:none;}
+    .topbar-left span:nth-child(2){display:none;}
+    .page-hero h1{font-size:28px;}
+    .pkg-grid{grid-template-columns:1fr;}
+    .cta-strip{flex-direction:column;text-align:center;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <span>📍 Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</span>
+      <span>🕐 Mon - Sun : 7:00 AM - 8:00 PM</span>
+      <span>✉️ ayushmandiagnostic@gmail.com</span>
+    </div>
+    <div class="topbar-right">
+      <div class="socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="https://wa.me/918383920848" aria-label="WhatsApp">wa</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="navwrap container">
+    <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ayushman Diagnostic Logo"></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="packages.html" class="active">Packages</a></li>
+        <li><a href="report.html">Report</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+    <a href="tel:8383920848" class="call-btn">📞 <span>8383920848</span></a>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Health Packages</h1>
+    <div class="crumb">Home / <span>Packages</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="text-align:center;">Health Checkup Packages</div>
+      <h2>Bundled Packages, Better Value</h2>
+      <p>Combine commonly needed tests into one package and save compared to booking each test separately.</p>
+    </div>
+
+    <div class="pkg-grid">
+      <!-- BASIC -->
+      <div class="pkg-card">
+        <div class="pkg-head">
+          <div class="tag">Starter</div>
+          <h3>Basic Health Package</h3>
+          <p>A simple starting checkup covering blood count and blood sugar.</p>
+          <div class="pkg-price"><span class="now">₹650</span><span class="was">₹690</span></div>
+        </div>
+        <div class="pkg-body">
+          <ul>
+            <li><span class="tick">✔</span> CBC (6 Part Machine)</li>
+            <li><span class="tick">✔</span> ESR</li>
+            <li><span class="tick">✔</span> Hemoglobin (HB)</li>
+            <li><span class="tick">✔</span> Blood Sugar (BSR)</li>
+            <li><span class="tick">✔</span> Blood Group</li>
+          </ul>
+          <a href="contact.html" class="pkg-btn">Book This Package</a>
+        </div>
+      </div>
+
+      <!-- DIABETES -->
+      <div class="pkg-card featured">
+        <span class="pkg-ribbon">Most Booked</span>
+        <div class="pkg-head">
+          <div class="tag">For Diabetics</div>
+          <h3>Diabetes Care Package</h3>
+          <p>Track and manage diabetes with sugar, HBA1C and kidney function.</p>
+          <div class="pkg-price"><span class="now">₹1,650</span><span class="was">₹1,830</span></div>
+        </div>
+        <div class="pkg-body">
+          <ul>
+            <li><span class="tick">✔</span> Blood Sugar (BSR)</li>
+            <li><span class="tick">✔</span> HBA1C</li>
+            <li><span class="tick">✔</span> Lipid Profile</li>
+            <li><span class="tick">✔</span> KFT with Electrolytes</li>
+          </ul>
+          <a href="contact.html" class="pkg-btn">Book This Package</a>
+        </div>
+      </div>
+
+      <!-- FULL BODY -->
+      <div class="pkg-card">
+        <div class="pkg-head">
+          <div class="tag">Comprehensive</div>
+          <h3>Full Body Checkup</h3>
+          <p>A complete checkup covering blood, liver, kidney, thyroid &amp; lipid health.</p>
+          <div class="pkg-price"><span class="now">₹3,650</span><span class="was">₹4,090</span></div>
+        </div>
+        <div class="pkg-body">
+          <ul>
+            <li><span class="tick">✔</span> CBC (6 Part Machine)</li>
+            <li><span class="tick">✔</span> ESR &amp; HB</li>
+            <li><span class="tick">✔</span> LFT</li>
+            <li><span class="tick">✔</span> KFT with Electrolytes</li>
+            <li><span class="tick">✔</span> Lipid Profile</li>
+            <li><span class="tick">✔</span> HBA1C</li>
+            <li><span class="tick">✔</span> Thyroid Profile (T3,T4,TSH)</li>
+            <li><span class="tick">✔</span> Blood Group</li>
+          </ul>
+          <a href="contact.html" class="pkg-btn">Book This Package</a>
+        </div>
+      </div>
+
+      <!-- SAFETY / SCREENING -->
+      <div class="pkg-card">
+        <div class="pkg-head">
+          <div class="tag">Screening</div>
+          <h3>Pre-Marriage / Safety Package</h3>
+          <p>Common screening tests recommended before marriage or surgery.</p>
+          <div class="pkg-price"><span class="now">₹1,050</span><span class="was">₹1,160</span></div>
+        </div>
+        <div class="pkg-body">
+          <ul>
+            <li><span class="tick">✔</span> Blood Group</li>
+            <li><span class="tick">✔</span> HBsAg (Hepatitis B), Rapid Card</li>
+            <li><span class="tick">✔</span> HCV Antibody, Rapid Card</li>
+            <li><span class="tick">✔</span> HIV Antibody, Rapid Card</li>
+            <li><span class="tick">✔</span> Bleeding &amp; Clotting Time</li>
+          </ul>
+          <a href="contact.html" class="pkg-btn">Book This Package</a>
+        </div>
+      </div>
+
+      <!-- SENIOR CITIZEN -->
+      <div class="pkg-card">
+        <div class="pkg-head">
+          <div class="tag">Senior Care</div>
+          <h3>Senior Citizen Package</h3>
+          <p>Recommended tests for regular monitoring in senior citizens.</p>
+          <div class="pkg-price"><span class="now">₹2,750</span><span class="was">₹3,010</span></div>
+        </div>
+        <div class="pkg-body">
+          <ul>
+            <li><span class="tick">✔</span> CBC &amp; ESR</li>
+            <li><span class="tick">✔</span> LFT</li>
+            <li><span class="tick">✔</span> KFT with Electrolytes</li>
+            <li><span class="tick">✔</span> Lipid Profile</li>
+            <li><span class="tick">✔</span> Blood Sugar (BSR)</li>
+            <li><span class="tick">✔</span> PT INR</li>
+          </ul>
+          <a href="contact.html" class="pkg-btn">Book This Package</a>
+        </div>
+      </div>
+
+      <!-- SURGICAL / FNAC -->
+      <div class="pkg-card">
+        <div class="pkg-head">
+          <div class="tag">Pre-Procedure</div>
+          <h3>Pre-Procedure Package</h3>
+          <p>Tests commonly required before a minor procedure or FNAC.</p>
+          <div class="pkg-price"><span class="now">₹2,150</span><span class="was">₹2,400</span></div>
+        </div>
+        <div class="pkg-body">
+          <ul>
+            <li><span class="tick">✔</span> CBC (6 Part Machine)</li>
+            <li><span class="tick">✔</span> Bleeding &amp; Clotting Time</li>
+            <li><span class="tick">✔</span> PT INR</li>
+            <li><span class="tick">✔</span> Fine Needle Aspiration Cytology (FNAC)</li>
+          </ul>
+          <a href="contact.html" class="pkg-btn">Book This Package</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-strip">⚠ Package prices shown are indicative and may change. Please call 8383920848 / 8210109908 to confirm before booking.</div>
+  </div>
+</section>
+
+<section class="section soft" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-strip">
+      <div>
+        <h3>Not sure which package fits you?</h3>
+        <p>Call us and our team will help you choose the right one.</p>
+      </div>
+      <a href="tel:8383920848" class="btn-primary">📞 Call 8383920848</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Ayushman Diagnostic">
+        <p>Accurate tests, reliable results. Advanced technology and compassionate care for your good health.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="services.html">Blood Tests</a></li>
+          <li><a href="services.html">Pathology Tests</a></li>
+          <li><a href="services.html">Biochemistry Tests</a></li>
+          <li><a href="report.html">Download Report</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <p>Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</p>
+        <p style="margin-top:8px;">📞 8383920848 / 8210109908</p>
+        <p style="margin-top:8px;">✉️ ayushmandiagnostic@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Ayushman Diagnostic. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery | Ayushman Diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#123a91; --blue-dark:#0c2a6b; --red:#e12629; --red-dark:#c01f22;
+    --ink:#1c2430; --muted:#5c6673; --bg-soft:#f4f7fb; --white:#ffffff; --border:#e6ebf2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);line-height:1.5;}
+  h1,h2,h3{font-family:'Poppins',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 24px;}
+
+  .topbar{background:var(--blue-dark);color:#dbe4f5;font-size:13px;}
+  .topbar .container{display:flex;justify-content:space-between;align-items:center;padding-top:9px;padding-bottom:9px;flex-wrap:wrap;gap:8px;}
+  .topbar-left{display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .topbar-left span, .topbar-right a{display:flex;align-items:center;gap:6px;color:#dbe4f5;}
+  .topbar-right{display:flex;align-items:center;gap:16px;}
+  .topbar-right .socials{display:flex;gap:12px;margin-left:6px;}
+  .topbar-right .socials a{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;}
+
+  header{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--border);}
+  .navwrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;}
+  .brand img{height:100px;width:auto;}
+  nav ul{display:flex;gap:30px;align-items:center;}
+  nav a{font-weight:600;font-size:14.5px;letter-spacing:.3px;color:var(--ink);padding:6px 2px;position:relative;}
+  nav a.active{color:var(--red);}
+  nav a.active::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2.5px;background:var(--red);}
+  nav a:hover{color:var(--red);}
+  .call-btn{background:var(--red);color:#fff;padding:12px 22px;border-radius:6px;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 6px 16px rgba(225,38,41,0.28);}
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--blue);}
+
+  .page-hero{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);padding:60px 0;color:#fff;}
+  .page-hero h1{font-size:36px;font-weight:800;margin-bottom:10px;}
+  .page-hero .crumb{color:#bcd0f2;font-size:14px;font-weight:600;}
+  .page-hero .crumb span{color:#fff;}
+
+  .eyebrow{color:var(--red);font-weight:700;font-size:13px;letter-spacing:1.5px;margin-bottom:14px;text-transform:uppercase;}
+  .section{padding:90px 0;}
+  .section-head{max-width:640px;margin:0 auto 44px;text-align:center;}
+  .section-head h2{font-size:34px;color:var(--blue);font-weight:800;margin-bottom:14px;}
+  .section-head p{color:var(--muted);font-size:15.5px;}
+
+  /* MASONRY-STYLE GALLERY GRID */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:220px;
+    gap:18px;
+  }
+  .g-item{
+    position:relative;border-radius:14px;overflow:hidden;cursor:pointer;
+    box-shadow:0 10px 25px -15px rgba(18,58,145,0.3);
+  }
+  .g-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+  .g-item:hover img{transform:scale(1.08);}
+  .g-item .overlay{
+    position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,42,107,0.75) 0%,rgba(12,42,107,0) 55%);
+    display:flex;align-items:flex-end;padding:16px;opacity:0;transition:opacity .3s ease;
+  }
+  .g-item:hover .overlay{opacity:1;}
+  .g-item .overlay p{color:#fff;font-weight:700;font-size:13.5px;}
+  .g-item.tall{grid-row:span 2;}
+  .g-item.wide{grid-column:span 2;}
+
+  /* LIGHTBOX */
+  .lightbox{
+    display:none;position:fixed;inset:0;background:rgba(12,20,40,0.92);z-index:1000;
+    align-items:center;justify-content:center;padding:30px;
+  }
+  .lightbox.active{display:flex;}
+  .lightbox img{max-width:90vw;max-height:85vh;border-radius:10px;box-shadow:0 30px 60px rgba(0,0,0,0.5);}
+  .lightbox-close{
+    position:absolute;top:24px;right:30px;color:#fff;font-size:34px;cursor:pointer;font-weight:300;
+    width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;
+    background:rgba(255,255,255,0.1);
+  }
+  .lightbox-nav{
+    position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:30px;cursor:pointer;
+    width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;
+    background:rgba(255,255,255,0.12);
+  }
+  .lightbox-prev{left:24px;}
+  .lightbox-next{right:24px;}
+
+  .cta-strip{background:linear-gradient(120deg,var(--blue) 0%, var(--blue-dark) 100%);color:#fff;border-radius:18px;padding:50px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-top:70px;}
+  .cta-strip h3{font-size:26px;font-weight:800;margin-bottom:8px;}
+  .cta-strip p{color:#cdd9f2;font-size:14.5px;}
+  .btn-primary{background:var(--red);color:#fff;padding:15px 26px;border-radius:7px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 20px rgba(225,38,41,0.28);}
+
+  footer{background:var(--blue-dark);color:#c6d3ef;padding:64px 0 0;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .footer-brand img{height:44px;margin-bottom:16px;}
+  .footer-grid h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:18px;}
+  .footer-grid p{font-size:13.5px;line-height:1.7;color:#aebde0;}
+  .footer-grid ul li{margin-bottom:10px;}
+  .footer-grid ul a{font-size:13.5px;color:#c6d3ef;}
+  .footer-grid ul a:hover{color:#fff;}
+  .footer-bottom{padding:22px 0;text-align:center;font-size:13px;color:#8fa0c9;}
+
+  @media(max-width:1024px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .g-item.wide{grid-column:span 2;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    nav{display:none;}
+    .menu-toggle{display:block;}
+    .call-btn span{display:none;}
+    .topbar-left span:nth-child(2){display:none;}
+    .page-hero h1{font-size:28px;}
+    .gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px;}
+    .g-item.wide{grid-column:span 2;}
+    .g-item.tall{grid-row:span 1;}
+    .cta-strip{flex-direction:column;text-align:center;}
+    .footer-grid{grid-template-columns:1fr;}
+    .lightbox-nav{width:40px;height:40px;font-size:22px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <span>📍 Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</span>
+      <span>🕐 Mon - Sun : 7:00 AM - 8:00 PM</span>
+      <span>✉️ ayushmandiagnostic@gmail.com</span>
+    </div>
+    <div class="topbar-right">
+      <div class="socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="https://wa.me/918383920848" aria-label="WhatsApp">wa</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="navwrap container">
+    <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ayushman Diagnostic Logo"></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="report.html">Report</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+    <a href="tel:8383920848" class="call-btn">📞 <span>8383920848</span></a>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Gallery</h1>
+    <div class="crumb">Home / <span>Gallery</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="text-align:center;">A Glimpse Inside</div>
+      <h2>Our Lab &amp; Team in Action</h2>
+      <p>A look at our facility, equipment and the team working every day to deliver accurate results.</p>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="g-item tall" data-caption="Inauguration day at Ayushman Diagnostic">
+        <img src="assets/opening.jpeg" alt="Ayushman Diagnostic inauguration">
+        <div class="overlay"><p>Inauguration Day</p></div>
+      </div>
+      <div class="g-item" data-caption="Our reception desk">
+        <img src="assets/reception.jpeg" alt="Reception desk">
+        <div class="overlay"><p>Reception Desk</p></div>
+      </div>
+      <div class="g-item wide" data-caption="Ayushman Diagnostic storefront">
+        <img src="assets/storefront.jpeg" alt="Ayushman Diagnostic storefront">
+        <div class="overlay"><p>Our Clinic</p></div>
+      </div>
+      <div class="g-item" data-caption="Patient waiting area">
+        <img src="assets/waiting.jpeg" alt="Patient waiting area">
+        <div class="overlay"><p>Waiting Area</p></div>
+      </div>
+      <div class="g-item tall" data-caption="Automated blood analyzer machine">
+        <img src="assets/analyzer.jpeg" alt="Sysmex blood analyzer machine">
+        <div class="overlay"><p>Lab Equipment</p></div>
+      </div>
+      <div class="g-item wide" data-caption="Sample collection in progress">
+        <img src="assets/collection.jpeg" alt="Sample collection">
+        <div class="overlay"><p>Sample Collection</p></div>
+      </div>
+      <div class="g-item" data-caption="Our team assisting a patient">
+        <img src="assets/outdoor.jpeg" alt="Team assisting patient">
+        <div class="overlay"><p>Patient Care</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-strip">
+      <div>
+        <h3>Want to visit us in person?</h3>
+        <p>Come see our facility — walk-ins welcome, 7 AM to 8 PM, all days.</p>
+      </div>
+      <a href="contact.html" class="btn-primary">📍 Get Directions</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Ayushman Diagnostic">
+        <p>Accurate tests, reliable results. Advanced technology and compassionate care for your good health.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="services.html">Blood Tests</a></li>
+          <li><a href="services.html">Pathology Tests</a></li>
+          <li><a href="services.html">Biochemistry Tests</a></li>
+          <li><a href="report.html">Download Report</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <p>Infront of Shiv Mandir, Mohanpur Chowk, Samastipur - 848101</p>
+        <p style="margin-top:8px;">📞 8383920848 / 8210109908</p>
+        <p style="margin-top:8px;">✉️ ayushmandiagnostic@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Ayushman Diagnostic. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightboxClose">&times;</span>
+  <span class="lightbox-nav lightbox-prev" id="lightboxPrev">&#10094;</span>
+  <img src="" alt="" id="lightboxImg">
+  <span class="lightbox-nav lightbox-next" id="lightboxNext">&#10095;</span>
+</div>
+
+<script>
+  const items = Array.from(document.querySelectorAll('.g-item img'));
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  let currentIndex = 0;
+
+  function openLightbox(i){
+    currentIndex = i;
+    lightboxImg.src = items[i].src;
+    lightboxImg.alt = items[i].alt;
+    lightbox.classList.add('active');
+  }
+  items.forEach((img, i) => {
+    img.closest('.g-item').addEventListener('click', () => openLightbox(i));
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('active'));
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) lightbox.classList.remove('active'); });
+  document.getElementById('lightboxPrev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + items.length) % items.length;
+    lightboxImg.src = items[currentIndex].src;
+  });
+  document.getElementById('lightboxNext').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % items.length;
+    lightboxImg.src = items[currentIndex].src;
+  });
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('active')) return;
+    if(e.key === 'Escape') lightbox.classList.remove('active');
+    if(e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
+    if(e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+  });
+</script>
+
+</body>
+</html>
