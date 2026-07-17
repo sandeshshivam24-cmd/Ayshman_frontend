@@ -125,6 +125,21 @@
     .footer-grid{grid-template-columns:1fr;}
     .lightbox-nav{width:40px;height:40px;font-size:22px;}
   }
+  nav.open{
+    display:block;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:#fff;
+    padding:20px 24px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.1);
+  }
+  nav.open ul{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
 </style>
 </head>
 <body>
@@ -299,6 +314,11 @@
     if(e.key === 'Escape') lightbox.classList.remove('active');
     if(e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
     if(e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+  });
+</script>
+<script>
+  document.querySelector('.menu-toggle').addEventListener('click', function() {
+    document.querySelector('nav').classList.toggle('open');
   });
 </script>
 

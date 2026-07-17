@@ -135,6 +135,21 @@
     .cta-strip{flex-direction:column;text-align:center;}
     .footer-grid{grid-template-columns:1fr;}
   }
+  nav.open{
+    display:block;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:#fff;
+    padding:20px 24px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.1);
+  }
+  nav.open ul{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
 </style>
 </head>
 <body>
@@ -319,6 +334,11 @@
 
     // Placeholder logic — will be replaced with a real API call to the backend.
     notFoundBox.style.display = 'block';
+  });
+</script>
+<script>
+  document.querySelector('.menu-toggle').addEventListener('click', function() {
+    document.querySelector('nav').classList.toggle('open');
   });
 </script>
 
