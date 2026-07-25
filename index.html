@@ -1081,7 +1081,7 @@
       statusMsg.textContent = 'Fetching report...';
 
       try {
-        const res = await fetch(`http://localhost:5000/api/report/${mobile}`);
+        const res = await fetch(`https://ayushmandiagnostic-backend-server.onrender.com/api/report/${mobile}`);
         const data = await res.json();
 
         if (!res.ok || !data.success) {
